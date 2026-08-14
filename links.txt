@@ -1,0 +1,2 @@
+google console link Oauth verification- better-auth  -- used email id -bhavisachdeva3102@gmail.com  --- https://console.cloud.google.com/auth/clients/731367564733-8plt2elv0fpaifq99metoju5i646ra6s.apps.googleusercontent.com?project=chaibook-505009
+
