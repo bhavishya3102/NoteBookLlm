@@ -65,7 +65,9 @@ export function LoginForm({
 
         const { data, error } = await signIn.social({
             provider: "google",
-            callbackURL: callbackUrl,
+            // Absolute URL: the OAuth callback is served by the API origin
+            // (8080), so a relative path would resolve there and 404.
+            callbackURL: new URL(callbackUrl, window.location.origin).toString(),
         });
 
         if (error) {
