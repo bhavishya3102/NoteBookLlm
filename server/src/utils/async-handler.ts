@@ -27,7 +27,7 @@ type AsyncRequestHandler = (
  *
  */
 export function asyncHandler(handler: AsyncRequestHandler): RequestHandler {
-    return (req, res, next) => {
+    return (req: Request, res: Response, next: NextFunction  ) => {
         void handler(req, res, next).catch(next);
     };
 }

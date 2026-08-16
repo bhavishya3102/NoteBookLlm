@@ -1,2 +1,19 @@
 google console link Oauth verification- better-auth  -- used email id -bhavisachdeva3102@gmail.com  --- https://console.cloud.google.com/auth/clients/731367564733-8plt2elv0fpaifq99metoju5i646ra6s.apps.googleusercontent.com?project=chaibook-505009
 
+
+
+https://platform.openai.com/api-keys
+
+http://localhost:8288/functions
+
+https://www.inngest.com/docs/getting-started/express-quick-start
+
+https://ai-sdk.dev/
+
+https://app.pinecone.io/organizations/-P-8uCQzr7DYXip3FLfZ/projects/12ec58a3-2846-4d4a-b76e-970b7893678e/indexes
+
+https://console.cloudinary.com/app/c-6452e6dfb7af3bf382d6928e3464f2/image/getting-started
+
+https://www.firecrawl.dev/app/t/1kd5GnnemCg/playground?endpoint=search
+
+https://app.mem0.ai/dashboard/get-started?usecase=Personal%20assistant
