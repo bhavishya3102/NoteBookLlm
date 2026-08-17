@@ -21,6 +21,7 @@ import {
     EmptyTitle,
 } from "@/components/ui/empty";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ManthanWordmark } from "@/shared/components/brand/manthan-mark";
 import { SignOutButton } from "@/features/auth/components/sign-out-button";
 import { memoryRoutes } from "@/features/memory";
 import { ApiError } from "@/shared/lib/api";
@@ -107,12 +108,9 @@ export function DashboardHome({ userName }: DashboardHomeProps) {
                 <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 md:px-8">
                     <Link
                         href={workspaceRoutes.list}
-                        className="flex items-center gap-2.5 font-heading text-lg font-semibold tracking-tight"
+                        className="flex items-center gap-2.5"
                     >
-                        <span className="flex size-8 items-center justify-center rounded-xl bg-primary/15 text-base">
-                            📚
-                        </span>
-                        Chaibook
+                        <ManthanWordmark size="md" />
                     </Link>
 
                     <div className="flex items-center gap-1.5 sm:gap-2">
@@ -138,7 +136,7 @@ export function DashboardHome({ userName }: DashboardHomeProps) {
                         <p className="text-sm font-medium text-primary">
                             Welcome back, {greeting}
                         </p>
-                        <h1 className="font-heading text-3xl font-semibold tracking-tight md:text-4xl">
+                        <h1 className="font-display text-3xl font-semibold tracking-[-0.02em] md:text-4xl">
                             Your notebooks
                         </h1>
                         <p className="max-w-2xl text-sm text-muted-foreground md:text-base">

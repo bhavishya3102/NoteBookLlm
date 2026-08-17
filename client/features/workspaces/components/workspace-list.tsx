@@ -93,7 +93,7 @@ export function WorkspaceList() {
                         <EmptyTitle>No workspaces yet</EmptyTitle>
                         <EmptyDescription>
                             Create your first notebook to get started with
-                            Chaibook.
+                            Manthan.
                         </EmptyDescription>
                     </EmptyHeader>
                     <EmptyContent>
