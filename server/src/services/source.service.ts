@@ -13,7 +13,7 @@ import {
     type SourceRecord,
 } from "../repositories/source.repository.js";
 import { getWorkspaceByIdForUser } from "./workspace.service.js";
-import { NotFoundError } from "../types/app-error.js";
+import { NotFoundError, ValidationError } from "../types/app-error.js";
 import type {
     CreateSourceInput,
     ImportWebsiteInput,
@@ -86,6 +86,63 @@ export async function getSourceForWorkspace(
     }
 
     return source;
+}
+
+/**
+ * Downloads the uploaded PDF for a source so the API can serve it inline.
+ *
+ * Files are stored on Cloudinary without a `.pdf` extension (see
+ * {@link uploadPdfToCloudinary}), so the bytes are proxied back through the API
+ * instead of linking users straight to storage.
+ *
+ * @param workspaceId - Workspace the source belongs to
+ * @param sourceId - PDF source to download
+ * @param userId - Authenticated user's id
+ * @returns PDF bytes and the filename to present
+ * @throws {NotFoundError} When the source has no uploaded file
+ * @throws {ValidationError} When storage rejects the download
+ *
+ */
+export async function getSourceFileForWorkspace(
+    workspaceId: string,
+    sourceId: string,
+    userId: string,
+) {
+    const source = await getSourceForWorkspace(workspaceId, sourceId, userId);
+    const metadata = (source.metadata ?? {}) as {
+        fileUrl?: string;
+        fileName?: string;
+    };
+
+    if (source.type !== "PDF" || !metadata.fileUrl) {
+        throw new NotFoundError("This source has no uploaded file");
+    }
+
+    const response = await fetch(metadata.fileUrl);
+
+    if (!response.ok) {
+        console.error(
+            "[sources] PDF download failed",
+            sourceId,
+            response.status,
+            metadata.fileUrl,
+        );
+
+        throw new ValidationError(
+            "Could not load this PDF from storage. Re-upload the file to fix it.",
+        );
+    }
+
+    const filename = (metadata.fileName || `${source.title}.pdf`)
+        .replace(/[\r\n"]/g, "")
+        .trim();
+
+    return {
+        buffer: Buffer.from(await response.arrayBuffer()),
+        filename: filename.toLowerCase().endsWith(".pdf")
+            ? filename
+            : `${filename}.pdf`,
+    };
 }
 
 /**

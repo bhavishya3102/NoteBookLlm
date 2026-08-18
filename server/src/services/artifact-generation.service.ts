@@ -107,15 +107,42 @@ export async function gatherSourceContext(
         );
     }
 
-    const text = withContent
-        .map((source) => `# ${source.title}\n\n${source.content}`)
-        .join("\n\n---\n\n")
-        .slice(0, MAX_CONTEXT_CHARS);
+    const text = buildSourceContext(withContent);
 
     return {
         text,
         sourceIds: selected.map((source) => source.id),
     };
+}
+
+/**
+ * Concatenates source texts so every source gets a share of the context budget.
+ *
+ * Sources are filled shortest-first: each one takes what it needs (or an equal
+ * share of what is left), so a single large source cannot crowd the others out.
+ *
+ * @param sources - Titles and non-empty contents of the selected sources
+ * @returns Combined text within {@link MAX_CONTEXT_CHARS}
+ */
+function buildSourceContext(sources: { title: string; content: string }[]) {
+    const entries: string[] = sources.map(() => "");
+    let remainingChars = MAX_CONTEXT_CHARS;
+
+    const shortestFirst = sources
+        .map((source, index) => ({ index, length: source.content.length }))
+        .sort((a, b) => a.length - b.length);
+
+    shortestFirst.forEach(({ index }, position) => {
+        const source = sources[index]!;
+        const share = Math.floor(
+            remainingChars / (shortestFirst.length - position),
+        );
+
+        entries[index] = `# ${source.title}\n\n${source.content}`.slice(0, share);
+        remainingChars -= entries[index]!.length;
+    });
+
+    return entries.join("\n\n---\n\n");
 }
 
 /**

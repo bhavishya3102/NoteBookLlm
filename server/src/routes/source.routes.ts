@@ -5,6 +5,7 @@ import {
     deleteSource,
     getSource,
     getSourceChunks,
+    getSourceFile,
     importWebSearch,
     importWebsite,
     importYoutube,
@@ -84,6 +85,7 @@ sourceRoutes.post("/import/web-search", asyncHandler(importWebSearch));
 sourceRoutes.post("/bulk-delete", asyncHandler(bulkDeleteSources));
 sourceRoutes.post("/reprocess", asyncHandler(reprocessSources));
 sourceRoutes.get("/:sourceId/chunks", asyncHandler(getSourceChunks));
+sourceRoutes.get("/:sourceId/file", asyncHandler(getSourceFile));
 sourceRoutes.get("/:sourceId", asyncHandler(getSource));
 sourceRoutes.post("/:sourceId/reprocess", asyncHandler(reprocessSource));
 sourceRoutes.delete("/:sourceId", asyncHandler(deleteSource));

@@ -63,6 +63,11 @@ export function importWebsiteSource(
     );
 }
 
+/** Same-origin URL that streams a PDF source back with `application/pdf` headers. */
+export function sourceFileUrl(workspaceId: string, sourceId: string) {
+    return `/api/workspaces/${workspaceId}/sources/${sourceId}/file`;
+}
+
 export function importYoutubeSource(
     workspaceId: string,
     input: ImportYoutubeInput,

@@ -6,6 +6,7 @@ import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ApiError } from "@/shared/lib/api";
+import { sourceFileUrl } from "../lib/api";
 import { useSource } from "../hooks/use-sources";
 import { SOURCE_TYPE_LABELS } from "../lib/constants";
 import { sourceRoutes } from "../lib/routes";
@@ -124,7 +125,7 @@ export function SourceDetail({ workspaceId, sourceId }: SourceDetailProps) {
                         <p className="text-muted-foreground">{fileName}</p>
                     ) : null}
                     <a
-                        href={fileUrl}
+                        href={sourceFileUrl(workspaceId, sourceId)}
                         target="_blank"
                         rel="noreferrer"
                         className="mt-2 inline-flex text-primary underline-offset-4 hover:underline"

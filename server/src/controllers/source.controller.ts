@@ -4,6 +4,7 @@ import {
     bulkDeleteSourcesForWorkspace,
     deleteSourceForWorkspace,
     getSourceChunksForWorkspace,
+    getSourceFileForWorkspace,
     getSourceForWorkspace,
     importWebSearchSource,
     importWebsiteSource,
@@ -55,6 +56,22 @@ export async function getSourceChunks(req: Request, res: Response) {
         req.session.user.id,
     );
     res.json(result);
+}
+
+export async function getSourceFile(req: Request, res: Response) {
+    const { workspaceId, sourceId } = sourceIdParamSchema.parse(req.params);
+    const file = await getSourceFileForWorkspace(
+        workspaceId,
+        sourceId,
+        req.session.user.id,
+    );
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+        "Content-Disposition",
+        `inline; filename="${file.filename}"`,
+    );
+    res.send(file.buffer);
 }
 
 export async function createSource(req: Request, res: Response) {

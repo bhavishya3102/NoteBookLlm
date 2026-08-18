@@ -3,7 +3,6 @@ import { v2 as cloudinary } from "cloudinary";
 import { ValidationError } from "../types/app-error.js";
 
 const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET ?? "dt2jgaj48";
 const apiKey = process.env.CLOUDINARY_API_KEY;
 const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
@@ -16,20 +15,14 @@ export type CloudinaryUploadResult = {
     resourceType: "raw" | "image";
 };
 
-type CloudinaryUploadResponse = {
-    secure_url: string;
-    public_id: string;
-    bytes: number;
-    resource_type?: string;
-    error?: { message: string };
-};
-
-export function getSignedCloudinaryDownloadUrl(
-    publicId: string,
-    resourceType: "raw" | "image" = "raw",
-) {
+/**
+ * Applies the Cloudinary SDK credentials.
+ *
+ * @returns True when all three credentials are present
+ */
+function configureCloudinary() {
     if (!cloudName || !apiKey || !apiSecret) {
-        return null;
+        return false;
     }
 
     cloudinary.config({
@@ -38,6 +31,17 @@ export function getSignedCloudinaryDownloadUrl(
         api_secret: apiSecret,
         secure: true,
     });
+
+    return true;
+}
+
+export function getSignedCloudinaryDownloadUrl(
+    publicId: string,
+    resourceType: "raw" | "image" = "raw",
+) {
+    if (!configureCloudinary()) {
+        return null;
+    }
 
     return cloudinary.url(publicId, {
         resource_type: resourceType,
@@ -48,10 +52,16 @@ export function getSignedCloudinaryDownloadUrl(
 }
 
 /**
- * Uploads a PDF buffer to Cloudinary using an unsigned upload preset.
+ * Uploads a PDF buffer to Cloudinary as a signed `raw` upload.
+ *
+ * The stored public id deliberately drops the `.pdf` extension: Cloudinary
+ * accounts with "Allow delivery of PDF and ZIP files" turned off return 401 for
+ * any URL ending in `.pdf`, even signed ones. Extensionless raw assets are
+ * delivered normally, and the file is served back to users through
+ * `GET /sources/:sourceId/file`, which restores the PDF headers.
  *
  * @param buffer - PDF file bytes from Multer
- * @param filename - Original filename (used in the multipart form)
+ * @param filename - Original filename (used as the public id base)
  * @returns Upload metadata including secure URL and public id
  * @throws {ValidationError} When Cloudinary is not configured or upload is rejected
  *
@@ -60,44 +70,59 @@ export async function uploadPdfToCloudinary(
     buffer: Buffer,
     filename: string,
 ): Promise<CloudinaryUploadResult> {
-    if (!cloudName) {
-        throw new ValidationError("Cloudinary is not configured on the server");
+    if (!configureCloudinary()) {
+        throw new ValidationError(
+            "Cloudinary is not configured. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET in server/.env.",
+        );
     }
 
-    const form = new FormData();
-    form.append(
-        "file",
-        new Blob([new Uint8Array(buffer)], { type: "application/pdf" }),
-        filename,
-    );
-    form.append("upload_preset", uploadPreset);
-    form.append("folder", "chaibook/pdfs");
+    const result = await new Promise<Record<string, unknown>>(
+        (resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                {
+                    resource_type: "raw",
+                    folder: "chaibook/pdfs",
+                    access_mode: "public",
+                    use_filename: true,
+                    unique_filename: true,
+                    filename_override: filename.replace(/\.pdf$/i, ""),
+                },
+                (error, uploaded) => {
+                    if (error || !uploaded) {
+                        reject(error ?? new Error("Cloudinary upload failed"));
+                        return;
+                    }
 
-    const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`,
-        { method: "POST", body: form },
-    );
+                    resolve(uploaded as unknown as Record<string, unknown>);
+                },
+            );
 
-    const result = (await response.json()) as CloudinaryUploadResponse;
+            stream.end(buffer);
+        },
+    ).catch((error: Error & { http_code?: number }) => {
+        console.error("[cloudinary] PDF upload failed", error);
 
-    if (!response.ok) {
-        const message =
-            result.error?.message ??
-            `Cloudinary upload failed (${response.status})`;
-
-        if (response.status === 403) {
+        if (error.http_code === 401) {
             throw new ValidationError(
-                "Cloudinary rejected the upload. Check CLOUDINARY_UPLOAD_PRESET in server/.env matches an unsigned preset in your dashboard.",
+                "Cloudinary rejected the credentials. Check CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET in server/.env.",
             );
         }
 
-        throw new ValidationError(message);
-    }
+        if (error.http_code === 403) {
+            throw new ValidationError(
+                "Cloudinary rejected the upload: this API key is missing Upload permission. In Cloudinary Dashboard → Settings → API Keys, enable Upload for the key.",
+            );
+        }
+
+        throw new ValidationError(
+            error.message || "Cloudinary upload failed",
+        );
+    });
 
     return {
-        secureUrl: result.secure_url,
-        publicId: result.public_id,
-        bytes: result.bytes,
+        secureUrl: String(result.secure_url),
+        publicId: String(result.public_id),
+        bytes: Number(result.bytes),
         originalFilename: filename,
         resourceType: result.resource_type === "image" ? "image" : "raw",
     };

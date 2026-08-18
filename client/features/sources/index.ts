@@ -15,6 +15,7 @@ export {
     importWebsiteSource,
     importYoutubeSource,
     listSources,
+    sourceFileUrl,
     uploadPdfSource,
 } from "./lib/api";
 
