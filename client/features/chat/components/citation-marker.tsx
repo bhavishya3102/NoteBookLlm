@@ -31,7 +31,7 @@ export function CitationMarker({
                 render={
                     <button
                         type="button"
-                        className="mx-0.5 inline-flex h-5 min-w-5 -translate-y-px items-center justify-center rounded-sm bg-citation/15 px-1 align-middle font-mono text-[10px] font-medium text-citation transition-colors hover:bg-citation/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
+                        className="mx-0.5 inline-flex h-5 min-w-5 -translate-y-px items-center justify-center rounded-full bg-primary/15 px-1 align-middle text-[10px] font-semibold text-primary transition-colors hover:bg-primary/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
                         aria-label={`Source ${label}: ${citation.sourceTitle}`}
                     >
                         {label}

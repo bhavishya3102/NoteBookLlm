@@ -77,7 +77,7 @@ export function MemorySettings() {
                         </h1>
                     </div>
                     <p className="max-w-xl text-sm text-muted-foreground">
-                        Powered by Mem0. Manthan learns stable facts from your
+                        Powered by Mem0. Chaibook learns stable facts from your
                         chats and uses semantic search to recall them in future
                         conversations.
                     </p>

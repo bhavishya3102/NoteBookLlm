@@ -17,6 +17,3 @@ https://console.cloudinary.com/app/c-6452e6dfb7af3bf382d6928e3464f2/image/gettin
 https://www.firecrawl.dev/app/t/1kd5GnnemCg/playground?endpoint=search
 
 https://app.mem0.ai/dashboard/get-started?usecase=Personal%20assistant
-
-https://console.neo4j.io/projects/24031426-e66c-47b4-9310-69913b680a33/studio/query
-

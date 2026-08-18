@@ -90,7 +90,7 @@ export function LoginForm({
                 <CardHeader className="text-center">
                     <CardTitle className="text-xl">Welcome back</CardTitle>
                     <CardDescription>
-                        Sign in with Google to continue to Manthan
+                        Sign in with Google to continue to Chaibook
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
