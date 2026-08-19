@@ -26,12 +26,16 @@ type ChatPreferencesState = {
     setWebSearch: (workspaceId: string, enabled: boolean) => void;
 };
 
-function resolveModel(model?: string): ChatModelId {
+export function resolveModel(model?: string): ChatModelId {
     if (model && CHAT_MODELS.includes(model as ChatModelId)) {
         return model as ChatModelId;
     }
 
     return "gpt-4o-mini";
+}
+
+export function defaultChatPrefs(defaultModel?: string): WorkspaceChatPrefs {
+    return { model: resolveModel(defaultModel), webSearch: false };
 }
 
 export const useChatPreferences = create<ChatPreferencesState>()(
@@ -44,10 +48,7 @@ export const useChatPreferences = create<ChatPreferencesState>()(
                     return existing;
                 }
 
-                return {
-                    model: resolveModel(defaultModel),
-                    webSearch: false,
-                };
+                return defaultChatPrefs(defaultModel);
             },
             setModel: (workspaceId, model) =>
                 set((state) => ({

@@ -45,8 +45,10 @@ export function parseCitations(value: unknown): ChatMessage["citations"] {
         (item): item is NonNullable<ChatMessage["citations"]>[number] =>
             typeof item === "object" &&
             item !== null &&
-            typeof (item as { sourceId?: unknown }).sourceId === "string" &&
             typeof (item as { sourceTitle?: unknown }).sourceTitle ===
-                "string",
+                "string" &&
+            // Workspace citations carry a sourceId; web-search ones only a url.
+            (typeof (item as { sourceId?: unknown }).sourceId === "string" ||
+                typeof (item as { url?: unknown }).url === "string"),
     );
 }

@@ -333,6 +333,7 @@ export async function streamWorkspaceChat(
                   }))
                 : [];
             const allCitations = [...citations, ...webCitations];
+            
 
             await createMessageRecord({
                 conversationId: conversation.id,

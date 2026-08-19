@@ -97,6 +97,7 @@ export function CitationSources({
                             <HoverCardTrigger
                                 delay={150}
                                 closeDelay={100}
+                                render={<div />}
                                 className="rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
                             >
                                 <Attachment

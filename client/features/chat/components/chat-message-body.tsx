@@ -90,6 +90,10 @@ export function ChatMessageBody({
 
     return (
         <Streamdown
+            /* Streamdown reuses parsed blocks and ignores a changed `components`
+               map, so citations that land after the stream would never bind to
+               their markers. Remount once the citation set arrives. */
+            key={`citations-${citations.length}`}
             mode={isAnimating ? "streaming" : "static"}
             isAnimating={isAnimating}
             plugins={plugins}
