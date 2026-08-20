@@ -23,6 +23,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { ManthanWordmark } from "@/shared/components/brand/manthan-mark";
 import { SignOutButton } from "@/features/auth/components/sign-out-button";
+import { authRoutes } from "@/features/auth";
 import { memoryRoutes } from "@/features/memory";
 import { ApiError } from "@/shared/lib/api";
 import { useDebouncedValue } from "@/shared/hooks/use-debounced-value";
@@ -107,7 +108,7 @@ export function DashboardHome({ userName }: DashboardHomeProps) {
             <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur-md">
                 <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 md:px-8">
                     <Link
-                        href={workspaceRoutes.list}
+                        href={authRoutes.home}
                         className="flex items-center gap-2.5"
                     >
                         <ManthanWordmark size="md" />

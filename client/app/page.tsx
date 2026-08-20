@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { ArrowRightIcon, QuoteIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ui/mode-toggle";
@@ -31,10 +30,6 @@ const STEPS = [
 
 export default async function HomePage() {
     const session = await getSession();
-
-    if (session) {
-        redirect(authRoutes.dashboard);
-    }
 
     return (
         <main className="relative isolate min-h-svh overflow-hidden">
@@ -155,14 +150,25 @@ export default async function HomePage() {
                     style={{ animationDelay: "80ms" }}
                 >
                     <ModeToggle />
-                    <Button
-                        nativeButton={false}
-                        variant="ghost"
-                        size="sm"
-                        render={<Link href={authRoutes.login} />}
-                    >
-                        Sign in
-                    </Button>
+                    {session ? (
+                        <Button
+                            nativeButton={false}
+                            variant="ghost"
+                            size="sm"
+                            render={<Link href={authRoutes.dashboard} />}
+                        >
+                            Dashboard
+                        </Button>
+                    ) : (
+                        <Button
+                            nativeButton={false}
+                            variant="ghost"
+                            size="sm"
+                            render={<Link href={authRoutes.login} />}
+                        >
+                            Sign in
+                        </Button>
+                    )}
                 </div>
             </header>
 
@@ -205,7 +211,11 @@ export default async function HomePage() {
                         style={{ animationDelay: "340ms" }}
                     >
                         <Link
-                            href={authRoutes.login}
+                            href={
+                                session
+                                    ? authRoutes.dashboard
+                                    : authRoutes.login
+                            }
                             className="group inline-flex h-11 items-center gap-2 rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground shadow-plate transition-all hover:brightness-110 focus-visible:ring-3 focus-visible:ring-ring/35 focus-visible:outline-none active:translate-y-px"
                         >
                             Start a notebook
