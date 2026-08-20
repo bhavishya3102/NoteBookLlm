@@ -3,12 +3,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export const CHAT_MODELS = ["gpt-4o-mini", "gpt-4o"] as const;
+export const CHAT_MODELS = ["gpt-4o-mini"] as const;
 export type ChatModelId = (typeof CHAT_MODELS)[number];
 
 export const CHAT_MODEL_LABELS: Record<ChatModelId, string> = {
     "gpt-4o-mini": "GPT-4o mini",
-    "gpt-4o": "GPT-4o",
 };
 
 type WorkspaceChatPrefs = {
@@ -45,7 +44,10 @@ export const useChatPreferences = create<ChatPreferencesState>()(
             getPrefs: (workspaceId, defaultModel) => {
                 const existing = get().byWorkspace[workspaceId];
                 if (existing) {
-                    return existing;
+                    return {
+                        ...existing,
+                        model: resolveModel(existing.model),
+                    };
                 }
 
                 return defaultChatPrefs(defaultModel);

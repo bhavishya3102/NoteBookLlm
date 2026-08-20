@@ -3,7 +3,7 @@
 export const CHAT_MODEL = "gpt-4o-mini";
 
 /** Allowed chat models exposed to the client and workspace settings. */
-export const CHAT_MODELS = ["gpt-4o-mini", "gpt-4o"] as const;
+export const CHAT_MODELS = ["gpt-4o-mini"] as const;
 
 /** OpenAI embedding model used for RAG vector indexing and query embedding. */
 export const EMBEDDING_MODEL = "text-embedding-3-small";
