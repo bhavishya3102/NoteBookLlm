@@ -20,3 +20,8 @@ https://app.mem0.ai/dashboard/get-started?usecase=Personal%20assistant
 
 https://console.neo4j.io/projects/24031426-e66c-47b4-9310-69913b680a33/studio/query
 
+
+render ---vercel  --- bhavisachdeva3102 email id
+
+production me neon-postgresql use karee ha 
+local me docker me postgresql chala rahae haa
