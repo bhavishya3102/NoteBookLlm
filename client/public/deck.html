@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Manthan — an AI study workspace that turns your PDFs, lectures and notes into cited answers, flashcards and quizzes. Pitch deck: problem, product, pricing, unit economics and revenue projections.">
+<meta property="og:title" content="Manthan — Pitch Deck">
+<meta property="og:description" content="Everything you have read, answering back. An AI study workspace grounded in your own sources.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%80%3C/text%3E%3C/svg%3E">
+<title>Manthan Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Familjen+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   Manthan — "Ink & Amrit"
+   Palette + type inherited from the product's BRAND.md, not invented here.
+   Light = Parchment (warm paper, burnt copper). Dark = Abyss (ocean ink, amrit gold).
+   Teal (--citation) is reserved: it marks source-grounded things only.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg:          oklch(0.972 0.008 79);
+  --recessed:    oklch(0.944 0.010 78);
+  --card:        oklch(0.990 0.006 79);
+  --fg:          oklch(0.215 0.021 52);
+  --muted:       oklch(0.512 0.021 58);
+  --faint:       oklch(0.640 0.018 60);
+  --primary:     oklch(0.505 0.128 47);
+  --primary-dim: oklch(0.505 0.128 47 / 0.12);
+  --citation:    oklch(0.455 0.078 195);
+  --border:      oklch(0.882 0.012 76);
+  --hairline:    oklch(0.882 0.012 76 / 0.7);
+  --good:        oklch(0.505 0.098 148);
+  --warn:        oklch(0.575 0.118 62);
+  --grain:       0.055;
+  --shadow-plate: 0 1px 2px oklch(0.215 0.021 52 / 0.05);
+  --shadow-lift:  0 12px 32px -12px oklch(0.215 0.021 52 / 0.18);
+
+  --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
+  --step-0:  clamp(0.95rem, 0.92rem + 0.16vw, 1.06rem);
+  --step-1:  clamp(1.12rem, 1.04rem + 0.4vw, 1.35rem);
+  --step-2:  clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+  --step-3:  clamp(2rem, 1.6rem + 2vw, 3.2rem);
+  --step-4:  clamp(2.6rem, 1.9rem + 3.4vw, 4.9rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:          oklch(0.178 0.019 268);
+    --recessed:    oklch(0.152 0.018 268);
+    --card:        oklch(0.222 0.021 266);
+    --fg:          oklch(0.938 0.008 268);
+    --muted:       oklch(0.700 0.016 268);
+    --faint:       oklch(0.565 0.018 268);
+    --primary:     oklch(0.792 0.135 74);
+    --primary-dim: oklch(0.792 0.135 74 / 0.14);
+    --citation:    oklch(0.742 0.098 194);
+    --border:      oklch(0.312 0.022 266);
+    --hairline:    oklch(0.312 0.022 266 / 0.8);
+    --good:        oklch(0.760 0.115 150);
+    --warn:        oklch(0.790 0.120 66);
+    --grain:       0.075;
+    --shadow-plate: 0 1px 2px oklch(0.08 0.02 268 / 0.5);
+    --shadow-lift:  0 16px 40px -14px oklch(0.08 0.02 268 / 0.7);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:          oklch(0.178 0.019 268);
+  --recessed:    oklch(0.152 0.018 268);
+  --card:        oklch(0.222 0.021 266);
+  --fg:          oklch(0.938 0.008 268);
+  --muted:       oklch(0.700 0.016 268);
+  --faint:       oklch(0.565 0.018 268);
+  --primary:     oklch(0.792 0.135 74);
+  --primary-dim: oklch(0.792 0.135 74 / 0.14);
+  --citation:    oklch(0.742 0.098 194);
+  --border:      oklch(0.312 0.022 266);
+  --hairline:    oklch(0.312 0.022 266 / 0.8);
+  --good:        oklch(0.760 0.115 150);
+  --warn:        oklch(0.790 0.120 66);
+  --grain:       0.075;
+  --shadow-plate: 0 1px 2px oklch(0.08 0.02 268 / 0.5);
+  --shadow-lift:  0 16px 40px -14px oklch(0.08 0.02 268 / 0.7);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Familjen Grotesk", ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* the paper grain — brand fingerprint, both themes */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1, h2, h3 { font-family: Fraunces, ui-serif, Georgia, serif; font-weight: 600; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--faint);
+}
+.numerals { font-family: Fraunces, serif; font-variant-numeric: tabular-nums; }
+.mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+.reading { font-family: Newsreader, ui-serif, Georgia, serif; font-size: 1.0125rem; line-height: 1.7; }
+
+/* ── deck scaffolding ─────────────────────────────────────────── */
+
+.deck {
+  height: 100svh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) { .deck { scroll-behavior: auto; } }
+
+.slide {
+  scroll-snap-align: start;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 5vw, 5rem) clamp(1.25rem, 5vw, 5.5rem);
+  border-bottom: 1px solid var(--hairline);
+  position: relative;
+}
+.slide > .inner {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2.2vw, 2rem);
+}
+
+.slide-no {
+  position: absolute;
+  top: clamp(1.4rem, 3vw, 2.4rem);
+  right: clamp(1.25rem, 5vw, 5.5rem);
+  font-family: "JetBrains Mono", monospace;
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+
+.title { font-size: var(--step-3); line-height: 1.06; letter-spacing: -0.015em; }
+.kicker { font-size: var(--step-1); color: var(--muted); max-width: 62ch; }
+.lede { font-size: var(--step-1); max-width: 60ch; }
+
+/* ── nav rail ─────────────────────────────────────────────────── */
+
+.rail {
+  position: fixed;
+  right: clamp(0.5rem, 1.4vw, 1.1rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.rail button {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: background 180ms ease, transform 180ms ease;
+}
+.rail button[aria-current="true"] { background: var(--primary); transform: scale(1.5); }
+.rail button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+@media (max-width: 720px) { .rail { display: none; } }
+
+.hint {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 80;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  background: color-mix(in oklch, var(--bg) 82%, transparent);
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  transition: opacity 500ms ease;
+}
+@media (max-width: 720px) { .hint { display: none; } }
+
+/* ── generic pieces ───────────────────────────────────────────── */
+
+.grid { display: grid; gap: clamp(0.9rem, 1.6vw, 1.35rem); }
+.g2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.g3 { grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); }
+.g4 { grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: clamp(1rem, 1.8vw, 1.5rem);
+  box-shadow: var(--shadow-plate);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.card h3 { font-size: var(--step-1); }
+.card p { color: var(--muted); font-size: var(--step--1); line-height: 1.6; }
+
+.stat { display: flex; flex-direction: column; gap: 0.25rem; }
+.stat .v { font-family: Fraunces, serif; font-size: var(--step-2); font-variant-numeric: tabular-nums; line-height: 1; color: var(--primary); }
+.stat .l { font-size: var(--step--1); color: var(--muted); }
+
+.rule { height: 1px; background: var(--hairline); border: 0; margin: 0; }
+
+.tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 0.5rem; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: var(--step--1); }
+th, td { text-align: left; padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--hairline); }
+thead th { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--faint); font-weight: 500; }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+tbody tr.total td { font-weight: 700; background: var(--recessed); }
+td strong { color: var(--fg); }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  width: fit-content;
+}
+.pill.copper { color: var(--primary); }
+.pill.teal { color: var(--citation); }
+.pill.good { color: var(--good); }
+.pill.warn { color: var(--warn); }
+.pill.mute { color: var(--faint); }
+
+a { color: var(--primary); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 2px; }
+
+.steps { display: grid; gap: clamp(1rem, 2vw, 1.6rem); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.step { display: flex; flex-direction: column; gap: 0.55rem; padding-top: 1rem; border-top: 2px solid var(--primary); }
+.step .n { font-family: Fraunces, serif; font-variant-numeric: tabular-nums; font-size: var(--step-2); color: var(--primary); line-height: 1; }
+.step h3 { font-size: var(--step-1); }
+.step p { color: var(--muted); font-size: var(--step--1); }
+
+ul.ticks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+ul.ticks li { display: flex; gap: 0.6rem; font-size: var(--step--1); color: var(--muted); line-height: 1.5; }
+ul.ticks li::before { content: "—"; color: var(--primary); flex: none; font-family: "JetBrains Mono", monospace; }
+
+/* ── cover: the churn ─────────────────────────────────────────── */
+
+.cover { align-items: center; text-align: center; overflow: hidden; }
+.cover .inner { align-items: center; }
+.churn {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.churn svg { width: min(115vw, 900px); height: auto; color: var(--primary); }
+.coil { fill: none; stroke: currentColor; transform-origin: 300px 300px; }
+@keyframes churn-cw { to { transform: rotate(360deg); } }
+@keyframes churn-ccw { to { transform: rotate(-360deg); } }
+.c1 { animation: churn-cw 64s linear infinite; }
+.c2 { animation: churn-ccw 38s linear infinite; }
+.c3 { animation: churn-cw 22s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .c1, .c2, .c3 { animation: none; } }
+
+.wordmark { font-family: Fraunces, serif; font-size: var(--step-4); font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.devanagari { font-size: var(--step-1); color: var(--muted); letter-spacing: 0.3em; }
+.tagline { font-family: Newsreader, serif; font-style: italic; font-size: var(--step-2); color: var(--fg); max-width: 22ch; }
+
+.byline { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: center; font-size: var(--step--1); color: var(--muted); }
+
+/* ── answer comparison ────────────────────────────────────────── */
+
+.answer {
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: clamp(0.9rem, 1.6vw, 1.35rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.answer.grounded { border-left: 3px solid var(--citation); }
+.answer.ungrounded { border-left: 3px solid var(--warn); }
+.cite {
+  color: var(--citation);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78em;
+  padding: 0 0.15em;
+  border-bottom: 1px solid currentColor;
+  cursor: help;
+}
+.srcline { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; color: var(--citation); letter-spacing: 0.04em; }
+
+/* ── pricing ──────────────────────────────────────────────────── */
+
+.plan { position: relative; }
+.plan.featured { border-color: var(--primary); box-shadow: var(--shadow-lift); }
+.price { display: flex; align-items: baseline; gap: 0.35rem; }
+.price .amt { font-family: Fraunces, serif; font-size: var(--step-2); font-variant-numeric: tabular-nums; line-height: 1; }
+.price .per { font-size: var(--step--1); color: var(--muted); }
+
+/* ── funnel ───────────────────────────────────────────────────── */
+
+.funnel { display: flex; flex-direction: column; gap: 0.4rem; }
+.frow { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.75rem; }
+.fbar { height: 30px; background: var(--primary-dim); border-left: 2px solid var(--primary); display: flex; align-items: center; padding-left: 0.6rem; font-size: var(--step--1); white-space: nowrap; overflow: hidden; }
+.frow .fv { font-family: "JetBrains Mono", monospace; font-size: var(--step--1); font-variant-numeric: tabular-nums; color: var(--muted); }
+
+/* ── slots the founder fills in ───────────────────────────────── */
+
+.slot {
+  border: 1px dashed var(--border);
+  border-radius: 0.5rem;
+  padding: clamp(0.9rem, 1.6vw, 1.3rem);
+  background: var(--recessed);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-height: 118px;
+  justify-content: center;
+}
+.slot .k { font-family: "JetBrains Mono", monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+.slot .fill { font-family: Fraunces, serif; font-size: var(--step-2); color: var(--faint); font-variant-numeric: tabular-nums; }
+.slot .note { font-size: 0.78rem; color: var(--faint); }
+
+.note-line { font-size: var(--step--1); color: var(--faint); max-width: 70ch; }
+</style>
+
+</head>
+<body>
+<nav class="rail" id="rail" aria-label="Slides"></nav>
+<div class="hint" id="hint">↓ / space to advance</div>
+
+<div class="deck" id="deck" tabindex="-1">
+
+<!-- 01 ─ cover ──────────────────────────────────────────────────── -->
+<section class="slide cover" id="s1">
+  <div class="churn" aria-hidden="true">
+    <svg viewBox="0 0 600 600">
+      <circle class="coil c1" cx="300" cy="300" r="268" stroke-width="1" stroke-dasharray="2 16"/>
+      <circle class="coil c1" cx="300" cy="300" r="252" stroke-width="1" stroke-dasharray="60 30" opacity="0.55"/>
+      <circle class="coil c2" cx="300" cy="300" r="196" stroke-width="1.5" stroke-dasharray="34 22"/>
+      <circle class="coil c2" cx="300" cy="300" r="180" stroke-width="1" stroke-dasharray="4 14" opacity="0.6"/>
+      <circle class="coil c3" cx="300" cy="300" r="122" stroke-width="2" stroke-dasharray="18 26"/>
+      <circle class="coil c3" cx="300" cy="300" r="104" stroke-width="1" stroke-dasharray="2 10" opacity="0.7"/>
+      <circle cx="300" cy="300" r="5" fill="currentColor" stroke="none"/>
+    </svg>
+  </div>
+  <div class="inner">
+    <p class="devanagari">मंथन</p>
+    <h1 class="wordmark">Manthan</h1>
+    <p class="tagline">Everything you have read, answering back.</p>
+    <hr class="rule" style="width:64px; background:var(--primary); height:2px;">
+    <p class="kicker" style="max-width:48ch; text-align:center;">An AI study workspace that turns your PDFs, lectures, websites and notes into <strong>cited answers, flashcards, quizzes and mind maps</strong> — grounded only in the material you trust.</p>
+    <div class="byline">
+      <span>Bhavishya Sachdeva</span>
+      <span class="mono">chaibook-llm.vercel.app</span>
+      <span>Chai Code Combinator · GenAI with JS 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 ─ problem ───────────────────────────────────────────────── -->
+<section class="slide" id="s2">
+  <span class="slide-no numerals">02</span>
+  <div class="inner">
+    <p class="eyebrow">The problem</p>
+    <h2 class="title">Students aren't short of material.<br>They're drowning in it.</h2>
+    <p class="kicker">Three weeks before an exam, the average aspirant is holding a pile that no human can hold in their head at once.</p>
+    <div class="grid g4">
+      <div class="card stat"><span class="v">400+</span><span class="l">pages in one standard textbook</span></div>
+      <div class="card stat"><span class="v">12</span><span class="l">PDF handouts &amp; previous papers</span></div>
+      <div class="card stat"><span class="v">3 hrs</span><span class="l">of recorded lecture, unsearchable</span></div>
+      <div class="card stat"><span class="v">40</span><span class="l">open browser tabs</span></div>
+    </div>
+    <hr class="rule">
+    <p class="lede">The bottleneck was never <em>access</em> to information. It is turning <strong>this specific pile</strong> into recall — and every hour spent condensing notes by hand is an hour not spent practising.</p>
+  </div>
+</section>
+
+<!-- 03 ─ why today's tools fail ────────────────────────────────── -->
+<section class="slide" id="s3">
+  <span class="slide-no numerals">03</span>
+  <div class="inner">
+    <p class="eyebrow">Why today's tools fail</p>
+    <h2 class="title">A confident answer you can't verify is worse than no answer.</h2>
+    <div class="grid g2">
+      <div class="answer ungrounded">
+        <span class="pill warn">Generic chatbot</span>
+        <p class="reading">Ownership in Rust means each value has a single owner and is dropped when the owner goes out of scope. Borrowing rules were relaxed in the 2021 edition to allow…</p>
+        <p class="note-line">Answered from the open internet. Which edition? Which page? Is that last clause even true? The night before an exam, the student cannot check — and it isn't in their syllabus anyway.</p>
+      </div>
+      <div class="answer grounded">
+        <span class="pill teal">Manthan</span>
+        <p class="reading">Each value in Rust has a single owner; when the owner goes out of scope, the value is dropped <span class="cite">[1]</span>. A move transfers ownership rather than copying <span class="cite">[2]</span>.</p>
+        <p class="srcline">[1] The Rust Book — PDF, p.68 · [2] Lecture 4: Memory — YouTube, 12:41</p>
+        <p class="note-line">Every claim is retrieved from the student's own uploaded sources, and each citation opens the exact passage. Nothing scored below the similarity floor gets into the prompt.</p>
+      </div>
+    </div>
+    <p class="note-line">Retrieval enforces a hard floor: chunks below <span class="mono">0.35</span> cosine similarity are dropped rather than padded into the prompt to manufacture an answer. Manthan would rather say it doesn't know.</p>
+  </div>
+</section>
+
+<!-- 04 ─ target user ───────────────────────────────────────────── -->
+<section class="slide" id="s4">
+  <span class="slide-no numerals">04</span>
+  <div class="inner">
+    <p class="eyebrow">Target user</p>
+    <h2 class="title">Start narrow: the aspirant with a fixed syllabus and a hard date.</h2>
+    <div class="grid g2">
+      <div class="card">
+        <span class="pill copper">Beachhead</span>
+        <h3>Final-year engineering &amp; GATE aspirants</h3>
+        <p>18–26, studying from a <em>finite, known</em> set of material: standard textbooks as PDFs, a coaching lecture series on YouTube, previous-year papers, their own notes. They already pay for at least one edtech subscription. And they are trivially reachable — Telegram groups, subject subreddits, YouTube comment sections, college WhatsApp groups.</p>
+        <ul class="ticks">
+          <li>Deadline creates urgency; urgency creates willingness to pay</li>
+          <li>Sources are shared across thousands of students — which becomes a cost advantage later</li>
+          <li>They can tell within one question whether the answer is right</li>
+        </ul>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:clamp(0.9rem,1.6vw,1.35rem);">
+        <div class="card">
+          <span class="pill mute">Expand into</span>
+          <h3>Adjacent, same behaviour</h3>
+          <p>UPSC &amp; state PSC aspirants · NEET repeaters · CAT · university semester exams · working professionals doing certifications (AWS, CFA, PMP).</p>
+        </div>
+        <div class="card">
+          <span class="pill mute">Then B2B2C</span>
+          <h3>Coaching institutes &amp; college departments</h3>
+          <p>A teacher uploads the source pack once; the whole batch gets a workspace, and the institute sees which chapters the class is failing quizzes on.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 ─ product ───────────────────────────────────────────────── -->
+<section class="slide" id="s5">
+  <span class="slide-no numerals">05</span>
+  <div class="inner">
+    <p class="eyebrow">The product</p>
+    <h2 class="title">Pour in, churn, draw out.</h2>
+    <p class="kicker">Samudra Manthan: the ocean was churned to draw out <em>amrit</em>. Same mechanic — raw sources go in, understanding comes out. The three steps are the actual pipeline, not a metaphor.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="n">01</span>
+        <h3>Pour in the sources</h3>
+        <p>PDF (page-aware), any website via Firecrawl, YouTube transcripts, pasted text and markdown. Ingestion runs as a background job, so a 300-page book doesn't block the UI or die on a refresh.</p>
+      </div>
+      <div class="step">
+        <span class="n">02</span>
+        <h3>Let the rope turn</h3>
+        <p>Recursive chunking at 1,000 characters with 100 of overlap, page numbers carried in metadata, embedded and indexed into a per-workspace vector namespace. Retrieval happens over passages, and every passage keeps its address.</p>
+      </div>
+      <div class="step">
+        <span class="n">03</span>
+        <h3>Draw out the nectar</h3>
+        <p>Ask and get a streamed, cited answer. Or turn the same indexed material into a summary, key takeaways, flashcards, an MCQ quiz with explanations, a mind map, or a long-form report.</p>
+      </div>
+    </div>
+    <hr class="rule">
+    <div class="grid g3">
+      <div class="card"><h3>It remembers the learner</h3><p>Long-term memory keeps your goals, exam date and weak topics across every workspace and every session — not just the current thread.</p></div>
+      <div class="card"><h3>Long threads stay coherent</h3><p>A rolling summary is generated every 8 messages, so a 200-message revision thread stays both cheap and on-topic.</p></div>
+      <div class="card"><h3>Web search, off by default</h3><p>A per-message toggle for when the sources genuinely don't cover it — deliberately opt-in, so grounding is the default state.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ─ demo ──────────────────────────────────────────────────── -->
+<section class="slide" id="s6">
+  <span class="slide-no numerals">06</span>
+  <div class="inner">
+    <p class="eyebrow">Demo</p>
+    <h2 class="title">Ninety seconds, one syllabus, four artifacts.</h2>
+    <div class="grid g2">
+      <div style="display:flex; flex-direction:column; gap:0.9rem;">
+        <div class="step" style="border-top-color:var(--citation);">
+          <span class="n" style="color:var(--citation);">→</span>
+          <h3>The live run</h3>
+          <p>Sign in with Google · create the workspace “GATE — Operating Systems” · drop in the Galvin PDF, a 3-hour lecture URL and the previous-year paper · watch the sources go PENDING → PROCESSING → READY · ask <em>“explain the banker's algorithm with the example from my notes”</em> · click a citation and land on page 291 of the PDF · generate a 20-question quiz · get one wrong and read the explanation.</p>
+        </div>
+        <p class="note-line">Try it: <a href="https://chaibook-llm.vercel.app">chaibook-llm.vercel.app</a> — Google sign-in, no card.</p>
+      </div>
+      <div class="grid" style="gap:0.75rem;">
+        <div class="slot"><span class="k">Screenshot 01</span><span class="fill">Workspace + sources ingesting</span><span class="note">replace this slot with the capture</span></div>
+        <div class="slot"><span class="k">Screenshot 02</span><span class="fill">Cited answer, citation open</span><span class="note">the money shot — teal citation expanded</span></div>
+        <div class="slot"><span class="k">Screenshot 03</span><span class="fill">Quiz + flashcards</span><span class="note">shows the study loop, not just chat</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 ─ under the hood ────────────────────────────────────────── -->
+<section class="slide" id="s7">
+  <span class="slide-no numerals">07</span>
+  <div class="inner">
+    <p class="eyebrow">Under the hood</p>
+    <h2 class="title">A real pipeline, not a prompt.</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Ingest</h3>
+        <ul class="ticks">
+          <li>Text extraction: unpdf (page-aware) · Firecrawl · youtube-transcript</li>
+          <li>Recursive splitter over <span class="mono">["\n\n", "\n", ". ", " ", ""]</span> — 1,000 chars, 100 overlap</li>
+          <li><span class="mono">text-embedding-3-small</span>, 1,536 dims, upserted into a per-workspace namespace</li>
+          <li>Durable background jobs with retries — the UI never waits on a 300-page book</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Answer</h3>
+        <ul class="ticks">
+          <li>Workspace ownership checked on every single request</li>
+          <li>Top-6 retrieval, hard floor at 0.35 similarity</li>
+          <li>Prompt = rules + user memories + rolling summary + numbered chunks + optional web results</li>
+          <li>Streamed to the browser; message and citations persisted after</li>
+          <li>Model whitelisted server-side — a client can never name its own model</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Layer</th><th>Stack</th><th>Why this one</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Frontend</strong></td><td>Next.js 15 · React 19 · Tailwind v4 · shadcn/ui</td><td>Same-origin API rewrites keep the auth cookie first-party</td></tr>
+          <tr><td><strong>Backend</strong></td><td>Express 5 · TypeScript · Better Auth</td><td>Small surface, streaming-friendly, cookie sessions</td></tr>
+          <tr><td><strong>Data</strong></td><td>Neon Postgres · Prisma 7 · Pinecone</td><td>Migrations run on deploy; vectors namespaced per workspace</td></tr>
+          <tr><td><strong>AI</strong></td><td>Vercel AI SDK v7 · OpenAI · Mem0 · Tavily</td><td>Streaming plus schema-validated structured output for artifacts</td></tr>
+          <tr><td><strong>Jobs &amp; files</strong></td><td>Inngest · Cloudinary · Firecrawl</td><td>Durable ingestion; the original PDF stays viewable beside the answer</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 08 ─ differentiation ───────────────────────────────────────── -->
+<section class="slide" id="s8">
+  <span class="slide-no numerals">08</span>
+  <div class="inner">
+    <p class="eyebrow">What makes this different</p>
+    <h2 class="title">Not a NotebookLM clone — a study loop.</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>ChatGPT</th><th>NotebookLM</th><th>Quizlet</th><th style="color:var(--primary);">Manthan</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Answers only from your sources</strong></td><td>No</td><td>Yes</td><td>—</td><td>Yes, with a similarity floor</td></tr>
+          <tr><td><strong>Citation opens the exact page</strong></td><td>No</td><td>Yes</td><td>—</td><td>Yes — page number carried through chunking</td></tr>
+          <tr><td><strong>Quizzes &amp; flashcards from the same index</strong></td><td>Ad-hoc, in chat</td><td>No</td><td>Manual entry</td><td>First-class objects with a status lifecycle</td></tr>
+          <tr><td><strong>Remembers the learner across notebooks</strong></td><td>Partial</td><td>No</td><td>No</td><td>Yes — persistent user memory</td></tr>
+          <tr><td><strong>YouTube lectures as a source</strong></td><td>No</td><td>Yes</td><td>No</td><td>Yes, transcript-indexed with timestamps</td></tr>
+          <tr><td><strong>Priced for an Indian student</strong></td><td>₹1,999/mo</td><td>Free, but no study loop</td><td>₹1,299/yr</td><td>₹399/mo</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3>Ingest → understand → <em>test yourself</em></h3><p>Every competitor stops at understanding. Retention comes from retrieval practice, and that is the half we built.</p></div>
+      <div class="card"><h3>Honest grounding</h3><p>Below the floor, the chunk is dropped, not padded in. We would rather lose the answer than fake it.</p></div>
+      <div class="card"><h3>A design opinion</h3><p>Parchment and Abyss, paper grain, answers set in a serif. It looks like an archival instrument, not another purple-gradient AI app.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 ─ pricing ───────────────────────────────────────────────── -->
+<section class="slide" id="s9">
+  <span class="slide-no numerals">09</span>
+  <div class="inner">
+    <p class="eyebrow">Pricing</p>
+    <h2 class="title">Free to prove it works. ₹399 when it matters.</h2>
+    <div class="grid g3">
+      <div class="card plan">
+        <span class="pill mute">Free</span>
+        <div class="price"><span class="amt">₹0</span></div>
+        <ul class="ticks">
+          <li>1 workspace, 5 sources</li>
+          <li>30 questions / month</li>
+          <li>5 learning artifacts</li>
+          <li>gpt-4o-mini only</li>
+        </ul>
+        <p class="note-line" style="margin-top:auto;">Costs us <strong>₹7</strong> per active free user per month. Cheap enough to be genuinely generous.</p>
+      </div>
+      <div class="card plan featured">
+        <span class="pill copper">Scholar · most popular</span>
+        <div class="price"><span class="amt">₹399</span><span class="per">/ month · ₹3,999 / year</span></div>
+        <ul class="ticks">
+          <li>Unlimited workspaces, 100 sources</li>
+          <li>1,000 questions / month</li>
+          <li>Unlimited artifacts + exam mode</li>
+          <li>gpt-4o on demand, memory, web search</li>
+        </ul>
+        <p class="note-line" style="margin-top:auto;">COGS <strong>₹145</strong> · gross margin <strong>64%</strong></p>
+      </div>
+      <div class="card plan">
+        <span class="pill mute">Cohort · institutes</span>
+        <div class="price"><span class="amt">₹249</span><span class="per">/ seat / month · min 10</span></div>
+        <ul class="ticks">
+          <li>Shared teacher-uploaded source packs</li>
+          <li>Class-level quiz analytics</li>
+          <li>Everything in Scholar per seat</li>
+        </ul>
+        <p class="note-line" style="margin-top:auto;">COGS <strong>₹110</strong> · shared sources are embedded once for the whole batch, so margin <em>improves</em> with class size.</p>
+      </div>
+    </div>
+    <p class="note-line">Annual is priced at 10 months, deliberately: exam cycles are annual, and prepaid annual plans kill the churn that kills study apps in month two.</p>
+  </div>
+</section>
+
+<!-- 10 ─ why ₹399 ──────────────────────────────────────────────── -->
+<section class="slide" id="s10">
+  <span class="slide-no numerals">10</span>
+  <div class="inner">
+    <p class="eyebrow">Why ₹399 and not ₹99 or ₹999</p>
+    <h2 class="title">It has to be less than one test series, and more than a toy.</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>What the student already pays</h3>
+        <div class="tablewrap" style="border:0;">
+          <table style="min-width:0;">
+            <tbody>
+              <tr><td>ChatGPT Plus</td><td class="num">₹1,999 / mo</td></tr>
+              <tr><td>One coaching test series</td><td class="num">₹1,500–4,000 / yr</td></tr>
+              <tr><td>Quizlet Plus</td><td class="num">₹1,299 / yr</td></tr>
+              <tr><td>A month of tiffin</td><td class="num">₹3,000</td></tr>
+              <tr class="total"><td>Manthan Scholar</td><td class="num">₹399 / mo</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note-line">₹399 sits below every serious study purchase in the stack, and above the price where students assume the product is abandonware.</p>
+      </div>
+      <div class="card">
+        <h3>What ₹399 buys back</h3>
+        <ul class="ticks">
+          <li><strong>~6 hours a month</strong> of condensing notes, making flashcards and hunting for “which page was that on”</li>
+          <li>At even ₹100 an hour of a student's own time, that is <strong>₹600 of value for ₹399</strong></li>
+          <li>One re-attempt of a competitive exam costs a year. The product only has to move the needle once</li>
+        </ul>
+        <hr class="rule">
+        <p class="note-line">The pitch is not “AI chat”. It is: <em>your syllabus, quizzed back at you, with the page number attached.</em> That is a thing students already pay a coaching institute ₹40,000 for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 ─ unit economics ────────────────────────────────────────── -->
+<section class="slide" id="s11">
+  <span class="slide-no numerals">11</span>
+  <div class="inner">
+    <p class="eyebrow">Unit economics</p>
+    <h2 class="title">Cost per paying user, line by line.</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Line item</th><th>Monthly volume, median Scholar user</th><th class="num">Cost</th></tr></thead>
+        <tbody>
+          <tr><td>Chat — gpt-4o-mini (85% of turns)</td><td>340 turns × ~3.5k in / 600 out</td><td class="num">₹25</td></tr>
+          <tr><td>Chat — gpt-4o (15% of turns)</td><td>60 turns × ~3.5k in / 600 out</td><td class="num">₹74</td></tr>
+          <tr><td>Learning artifacts</td><td>40 generations × ~10k in / 2k out</td><td class="num">₹9</td></tr>
+          <tr><td>Rolling conversation summaries</td><td>50 jobs (one per 8 messages)</td><td class="num">₹2</td></tr>
+          <tr><td>Embeddings — ingest + queries</td><td>~1,200 pages indexed</td><td class="num">₹2</td></tr>
+          <tr><td>Vector store, file storage, scraping</td><td>~3,000 vectors · 40 PDFs</td><td class="num">₹12</td></tr>
+          <tr><td>Memory + web search</td><td>Mem0 ops, Tavily calls</td><td class="num">₹17</td></tr>
+          <tr><td>Compute &amp; database, amortised</td><td>App servers, Neon, CDN</td><td class="num">₹4</td></tr>
+          <tr class="total"><td>Cost to serve</td><td></td><td class="num">₹145</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid g4">
+      <div class="card stat"><span class="v">₹399</span><span class="l">price</span></div>
+      <div class="card stat"><span class="v">₹145</span><span class="l">cost to serve</span></div>
+      <div class="card stat"><span class="v">64%</span><span class="l">gross margin</span></div>
+      <div class="card stat"><span class="v">₹7</span><span class="l">cost of a free user</span></div>
+    </div>
+    <p class="note-line">Heavy users land near ₹210 and light users near ₹85; ₹145 is the blended median. The 15% gpt-4o share is the single biggest lever — it is 3× the cost of every other line combined, which is exactly why routing is on the cost roadmap.</p>
+  </div>
+</section>
+
+<!-- 12 ─ projections ───────────────────────────────────────────── -->
+<section class="slide" id="s12">
+  <span class="slide-no numerals">12</span>
+  <div class="inner">
+    <p class="eyebrow">Growth &amp; revenue</p>
+    <h2 class="title">Conservative funnel, exam-cycle seasonality.</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Metric</th><th class="num">Month 6</th><th class="num">Year 1</th><th class="num">Year 2</th></tr></thead>
+        <tbody>
+          <tr><td>Cumulative signups</td><td class="num">12,000</td><td class="num">45,000</td><td class="num">160,000</td></tr>
+          <tr><td>MAU</td><td class="num">4,500</td><td class="num">14,000</td><td class="num">48,000</td></tr>
+          <tr><td>DAU</td><td class="num">700</td><td class="num">2,400</td><td class="num">9,000</td></tr>
+          <tr><td>DAU / MAU</td><td class="num">16%</td><td class="num">17%</td><td class="num">19%</td></tr>
+          <tr><td>Paying students</td><td class="num">430</td><td class="num">1,500</td><td class="num">5,000</td></tr>
+          <tr><td>Institute seats</td><td class="num">—</td><td class="num">300</td><td class="num">1,500</td></tr>
+          <tr class="total"><td>MRR</td><td class="num">₹1.55 L</td><td class="num">₹6.15 L</td><td class="num">₹21.7 L</td></tr>
+          <tr class="total"><td>ARR run-rate</td><td class="num">₹18.6 L</td><td class="num">₹73.8 L</td><td class="num">₹2.6 Cr</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h3>The assumptions, stated plainly</h3>
+        <div class="funnel">
+          <div class="frow"><div class="fbar" style="width:100%;">Landing page visit</div><span class="fv">100%</span></div>
+          <div class="frow"><div class="fbar" style="width:62%;">Signs up with Google</div><span class="fv">12%</span></div>
+          <div class="frow"><div class="fbar" style="width:38%;">Activated — 1 source + 1 question</div><span class="fv">55% of signups</span></div>
+          <div class="frow"><div class="fbar" style="width:20%;">Hits a free limit in week one</div><span class="fv">31%</span></div>
+          <div class="frow"><div class="fbar" style="width:9%;">Converts to Scholar</div><span class="fv">4% of signups</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Why these numbers, not nicer ones</h3>
+        <ul class="ticks">
+          <li>4% free→paid is the low end for freemium study tools (2–5%); creator-warmed traffic converts better, but we are not modelling that</li>
+          <li>Blended ARPU is ₹360, not ₹399 — assumes a third of paid users take the annual plan at 10 months' price</li>
+          <li>DAU/MAU of 16–19% is honest for a tool used in exam bursts, not a daily-habit app</li>
+          <li>Seasonality is real: Jan–Mar and Sep–Nov carry the year. Annual plans smooth it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 ─ investment & cost levers ──────────────────────────────── -->
+<section class="slide" id="s13">
+  <span class="slide-no numerals">13</span>
+  <div class="inner">
+    <p class="eyebrow">Investment &amp; cost control</p>
+    <h2 class="title">₹2.2 lakh to reach break-even. Margin improves with scale, by design.</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Six-month runway, solo founder</h3>
+        <div class="tablewrap" style="border:0;">
+          <table style="min-width:0;">
+            <tbody>
+              <tr><td>Model &amp; API credits</td><td class="num">₹45,000</td></tr>
+              <tr><td>Infra — app, DB, vectors, CDN</td><td class="num">₹43,000</td></tr>
+              <tr><td>Content, ads, campus ambassadors</td><td class="num">₹60,000</td></tr>
+              <tr><td>Domain, email, legal, payments setup</td><td class="num">₹31,000</td></tr>
+              <tr><td>Buffer</td><td class="num">₹40,000</td></tr>
+              <tr class="total"><td>Total</td><td class="num">₹2,19,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note-line">Founder time unpaid. Fixed infra is ~₹7,100/month, so <strong>90 paying users cover the servers</strong> and ~350 cover a modest founder salary — reachable around month five on the funnel above.</p>
+      </div>
+      <div class="card">
+        <h3>Seven levers on model &amp; infra cost</h3>
+        <ul class="ticks">
+          <li><strong>Route by difficulty.</strong> Escalate to gpt-4o only when retrieval scores are weak or the user asks. Cuts the largest line item by more than half</li>
+          <li><strong>Prompt caching</strong> on the system block and repeated source chunks — cached input is half price</li>
+          <li><strong>Batch embeddings.</strong> Ingestion is already async, so latency doesn't matter and the batch tier is 50% off</li>
+          <li><strong>Embed shared sources once.</strong> Five hundred students on the same NCERT chapter should not each pay to index it</li>
+          <li><strong>Semantic answer cache</strong> across users for identical public sources — one class asks the same chapter question 200 times</li>
+          <li><strong>Dedupe artifacts</strong> by source-set hash: same sources + same type = reuse, don't regenerate</li>
+          <li><strong>Open-weight models</strong> for flashcards and summaries once volume justifies the serverless GPU</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 ─ distribution ──────────────────────────────────────────── -->
+<section class="slide" id="s14">
+  <span class="slide-no numerals">14</span>
+  <div class="inner">
+    <p class="eyebrow">Getting users</p>
+    <h2 class="title">Go where the syllabus already lives.</h2>
+    <div class="grid g2">
+      <div class="card">
+        <h3>1 · Founder-led content, Instagram first</h3>
+        <p>“I fed my entire GATE syllabus to an AI and it quizzed me back.” Build-in-public reels on the product, the problem and the failures. The demo <em>is</em> the ad — the citation opening on page 291 is the hook.</p>
+      </div>
+      <div class="card">
+        <h3>2 · Seeded exam communities</h3>
+        <p>Telegram and Discord groups for GATE, UPSC and NEET. Drop in a ready-made public workspace pre-loaded with that exam's standard source pack. Value before signup.</p>
+      </div>
+      <div class="card">
+        <h3>3 · Campus ambassadors</h3>
+        <p>One per college: free Scholar, plus ₹100 per paid referral. Students trust a senior who is visibly using it more than any ad.</p>
+      </div>
+      <div class="card">
+        <h3>4 · Programmatic SEO that pays twice</h3>
+        <p>Public pages for “<span class="mono">&lt;subject&gt;</span> chapter summary” and “<span class="mono">&lt;subject&gt;</span> flashcards”, generated from public source packs. They rank <em>and</em> they warm the semantic cache that cuts our own inference bill.</p>
+      </div>
+      <div class="card">
+        <h3>5 · Coaching institute pilots</h3>
+        <p>Free for one batch for one cycle, in exchange for quiz-performance data. The teacher becomes the distribution channel for thirty seats at a time.</p>
+      </div>
+      <div class="card">
+        <span class="pill copper">The wedge</span>
+        <h3>Shared source packs</h3>
+        <p>Every channel above pushes students onto the <em>same</em> textbooks. That concentration is what makes caching, shared embeddings and institute margins work. Distribution and unit economics are the same strategy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 ─ validation ────────────────────────────────────────────── -->
+<section class="slide" id="s15">
+  <span class="slide-no numerals">15</span>
+  <div class="inner">
+    <p class="eyebrow">Validation</p>
+    <h2 class="title">Shipped and live. Now measuring the only things that matter.</h2>
+    <div class="grid g3">
+      <div class="card">
+        <span class="pill good">Live</span>
+        <h3>Deployed and working</h3>
+        <p>Frontend, API, background ingestion, vector index and payments-ready auth are all running in production today at <a href="https://chaibook-llm.vercel.app">chaibook-llm.vercel.app</a>.</p>
+      </div>
+      <div class="slot"><span class="k">Signed-up users</span><span class="fill">— —</span><span class="note">fill from the users table before recording</span></div>
+      <div class="slot"><span class="k">Sources ingested</span><span class="fill">— —</span><span class="note">count of sources with status READY</span></div>
+      <div class="slot"><span class="k">Questions answered</span><span class="fill">— —</span><span class="note">count of assistant messages</span></div>
+      <div class="slot"><span class="k">Artifacts generated</span><span class="fill">— —</span><span class="note">quizzes + flashcards + summaries</span></div>
+      <div class="slot"><span class="k">Waitlist / paid</span><span class="fill">— —</span><span class="note">leave out entirely if zero — do not inflate</span></div>
+    </div>
+    <div class="card">
+      <h3>What we are watching, in priority order</h3>
+      <ul class="ticks">
+        <li><strong>Activation:</strong> share of signups who add a source <em>and</em> ask a question in the first session</li>
+        <li><strong>The retention question:</strong> do they come back in week two, when the novelty is gone and the exam is still far away?</li>
+        <li><strong>Citation click rate</strong> — the single clearest signal that people trust the answers enough to check them</li>
+        <li><strong>Artifacts per active user</strong> — proof the study loop is the product, not just the chat</li>
+      </ul>
+    </div>
+    <p class="note-line">Numbers in the dashed slots are filled from live data before the deck is presented. An honest small number beats an invented large one.</p>
+  </div>
+</section>
+
+<!-- 16 ─ roadmap ───────────────────────────────────────────────── -->
+<section class="slide" id="s16">
+  <span class="slide-no numerals">16</span>
+  <div class="inner">
+    <p class="eyebrow">Roadmap</p>
+    <h2 class="title">From “understands my syllabus” to “knows how I forget”.</h2>
+    <div class="grid g3">
+      <div class="card">
+        <span class="pill copper">Next 3 months</span>
+        <h3>Close the study loop</h3>
+        <ul class="ticks">
+          <li>Spaced repetition on flashcards (SM-2), scheduled against the exam date</li>
+          <li>Exam mode — timed mock tests generated from the whole workspace</li>
+          <li>Audio overview: a two-host recap of a workspace for the commute</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="pill mute">6 months</span>
+        <h3>Make it theirs</h3>
+        <ul class="ticks">
+          <li>Handwritten-notes OCR — the last unindexed source students actually have</li>
+          <li>Answers in Hindi and regional languages over English sources</li>
+          <li>Mobile PWA with offline flashcard review</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="pill mute">12 months</span>
+        <h3>Make it social, and smarter</h3>
+        <ul class="ticks">
+          <li>Shared workspaces for study groups</li>
+          <li>Institute dashboard: which chapters is the batch failing?</li>
+          <li>Weakness-aware retrieval — quiz results steer what gets surfaced next</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="rule">
+    <p class="lede">The long game is a model of the learner, not just the library. Once Manthan knows which chapters you get wrong and when you forget them, the quiz that shows up on Tuesday morning is not a feature — it is the reason you stay subscribed.</p>
+  </div>
+</section>
+
+<!-- 17 ─ close ─────────────────────────────────────────────────── -->
+<section class="slide cover" id="s17">
+  <span class="slide-no numerals">17</span>
+  <div class="churn" aria-hidden="true" style="opacity:0.3;">
+    <svg viewBox="0 0 600 600">
+      <circle class="coil c2" cx="300" cy="300" r="232" stroke-width="1" stroke-dasharray="40 26"/>
+      <circle class="coil c3" cx="300" cy="300" r="150" stroke-width="1.5" stroke-dasharray="14 22"/>
+      <circle cx="300" cy="300" r="4" fill="currentColor" stroke="none"/>
+    </svg>
+  </div>
+  <div class="inner">
+    <p class="devanagari">मंथन</p>
+    <h2 class="title" style="max-width:20ch;">Everything you have read, answering back.</h2>
+    <p class="kicker" style="text-align:center; max-width:52ch;">A study workspace that is grounded in your sources, tests you on them, and remembers how you learn.</p>
+    <div class="grid g3" style="width:100%; max-width:760px;">
+      <div class="card stat"><span class="v">Live</span><span class="l"><a href="https://chaibook-llm.vercel.app">chaibook-llm.vercel.app</a></span></div>
+      <div class="card stat"><span class="v">Open</span><span class="l"><a href="https://github.com/bhavishya3102/NoteBookLlm">github.com/bhavishya3102</a></span></div>
+      <div class="card stat"><span class="v">₹399</span><span class="l">Scholar · 64% gross margin</span></div>
+    </div>
+    <p class="eyebrow" style="margin-top:0.5rem;">Bhavishya Sachdeva · Chai Code Combinator 2026</p>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function () {
+  var deck = document.getElementById("deck");
+  var slides = Array.prototype.slice.call(deck.querySelectorAll(".slide"));
+  var rail = document.getElementById("rail");
+  var hint = document.getElementById("hint");
+
+  slides.forEach(function (slide, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-label", "Slide " + (i + 1) + " of " + slides.length);
+    b.addEventListener("click", function () { go(i); });
+    rail.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(rail.children);
+  var current = 0;
+
+  function mark(i) {
+    current = i;
+    dots.forEach(function (d, j) { d.setAttribute("aria-current", j === i ? "true" : "false"); });
+  }
+  function go(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides[i].scrollIntoView({ block: "start" });
+    mark(i);
+  }
+
+  mark(0);
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) mark(slides.indexOf(e.target));
+    });
+  }, { root: deck, threshold: 0.55 });
+  slides.forEach(function (s) { io.observe(s); });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.target !== document.body && e.target !== deck) return;
+    var k = e.key;
+    if (k === "ArrowDown" || k === "ArrowRight" || k === "PageDown" || k === " ") { e.preventDefault(); go(current + 1); }
+    else if (k === "ArrowUp" || k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); go(current - 1); }
+    else if (k === "Home") { e.preventDefault(); go(0); }
+    else if (k === "End") { e.preventDefault(); go(slides.length - 1); }
+  });
+
+  var hidden = false;
+  deck.addEventListener("scroll", function () {
+    if (hidden) return;
+    hidden = true;
+    hint.style.opacity = "0";
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
