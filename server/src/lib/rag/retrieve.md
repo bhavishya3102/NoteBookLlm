@@ -186,7 +186,7 @@ Ab in chunks ko ek prompt string mein badalna hai. Ye function **pure hai** — 
 
 ```ts
 const sections: string[] = [
-    "You are Chaibook, an assistant that helps users learn from their workspace sources.",
+    "You are Manthan, an assistant that helps users learn from their workspace sources.",
 ];
 ```
 
@@ -206,7 +206,7 @@ buildChatSystemPrompt({
 ## Block 1 — Identity (hamesha)
 
 ```
-You are Chaibook, an assistant that helps users learn from their workspace sources.
+You are Manthan, an assistant that helps users learn from their workspace sources.
 ```
 
 ## Block 2 — Web search rules (line 102-108)
@@ -350,7 +350,7 @@ Chaar rules, har ek ka apna kaam:
 ## Final output
 
 ```
-You are Chaibook, an assistant that helps users learn from their workspace sources.
+You are Manthan, an assistant that helps users learn from their workspace sources.
 Known facts about this user (use when relevant):
 - User is a beginner programmer
 - User knows Python
@@ -399,7 +399,7 @@ Yahi string `streamText({ system: ... })` mein jaati hai.
         │
         ▼
 ┌─────────────── buildChatSystemPrompt ──────────────────┐
-│  sections = ["You are Chaibook..."]                    │
+│  sections = ["You are Manthan..."]                    │
 │    + webSearch rules?     (false → skip)               │
 │    + memories?            (2 hain → push)              │
 │    + summary?             (hai → push)                 │

@@ -267,7 +267,7 @@ Sabse pehle common system prompt:
 
 ```ts
 const system = [
-    `You are Chaibook, an expert learning assistant generating a ${type.toLowerCase()} from workspace source materials.`,
+    `You are Manthan, an expert learning assistant generating a ${type.toLowerCase()} from workspace source materials.`,
     "Use ONLY the provided source content. Do not invent facts not supported by the sources.",
     "Be clear, educational, and well-structured.",
 ].join("\n");

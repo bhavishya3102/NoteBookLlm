@@ -1,4 +1,4 @@
-# ChaiBookLLM — Data Model aur Flow
+# Manthan — Data Model aur Flow
 
 Yeh document batata hai ki `server/prisma/schema.prisma` ke saare models aapas me kaise jude hain,
 data kis order me banta hai, aur ek request server ke andar kaunse layers se guzarti hai.

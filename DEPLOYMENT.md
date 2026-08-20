@@ -1,4 +1,4 @@
-# Deployment — ChaiBookLLM
+# Deployment — Manthan
 
 Frontend on **Vercel**, backend on **Render**, database on **Neon**.
 
@@ -46,7 +46,7 @@ Set these in the Render dashboard (the blueprint marks them `sync: false`):
 | Variable | Notes |
 | --- | --- |
 | `DATABASE_URL` | Neon **direct** (unpooled) URL from step 1 |
-| `CLIENT_URL` | Vercel URL, e.g. `https://chaibook.vercel.app` — drives CORS |
+| `CLIENT_URL` | Vercel URL — `https://manthan-llm-delta.vercel.app` — drives CORS |
 | `BETTER_AUTH_URL` | Same Vercel URL |
 | `BETTER_AUTH_SECRET` | Render generates one; or reuse your own |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google Cloud OAuth credentials |
@@ -83,7 +83,7 @@ Environment variables:
 | Variable | Value |
 | --- | --- |
 | `API_URL` | Render service URL, e.g. `https://chaibook-api.onrender.com` |
-| `NEXT_PUBLIC_APP_URL` | The Vercel URL itself |
+| `NEXT_PUBLIC_APP_URL` | The Vercel URL itself — `https://manthan-llm-delta.vercel.app` |
 
 Or from the CLI:
 
@@ -101,7 +101,7 @@ In Google Cloud Console → Credentials → your OAuth client, add the authorize
 redirect URI:
 
 ```
-https://<your-vercel-url>/api/auth/callback/google
+https://manthan-llm-delta.vercel.app/api/auth/callback/google
 ```
 
 It points at Vercel, not Render, because Better Auth's `baseURL` is
@@ -121,7 +121,7 @@ The two services reference each other's URLs, so:
 
 ```bash
 curl https://<render-url>/health                  # {"status":"ok"}
-curl https://<vercel-url>/api/auth/get-session     # proxied through to Render
+curl https://manthan-llm-delta.vercel.app/api/auth/get-session   # proxied through to Render
 ```
 
 Then sign in with Google, create a workspace, and upload a PDF source.

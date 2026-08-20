@@ -8,7 +8,7 @@ An AI study workspace that turns your PDFs, lecture videos, websites and notes i
 **cited answers, flashcards, quizzes and mind maps** — grounded only in the material
 you actually trust.
 
-[**Live app →**](https://chaibook-llm.vercel.app) · [Brand & theme spec](./BRAND.md) · [Data model & flow](./DATA-MODEL-AND-FLOW.md) · [Deployment](./DEPLOYMENT.md)
+[**Live app →**](https://manthan-llm-delta.vercel.app) · [Brand & theme spec](./BRAND.md) · [Data model & flow](./DATA-MODEL-AND-FLOW.md) · [Deployment](./DEPLOYMENT.md)
 
 </div>
 

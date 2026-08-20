@@ -154,7 +154,7 @@ const systemPrompt = buildChatSystemPrompt({
 Chaar cheezein ek bade prompt string mein ghul jaati hain ([retrieve.ts:93](../lib/rag/retrieve.ts#L93)):
 
 ```
-You are Chaibook, an assistant that helps users learn from their workspace sources.
+You are Manthan, an assistant that helps users learn from their workspace sources.
 
 Known facts about this user (use when relevant):
 - User is a beginner programmer
