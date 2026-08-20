@@ -25,6 +25,16 @@ const nextConfig: NextConfig = {
                 source: "/api/memory",
                 destination: `${apiUrl}/api/memory`,
             },
+            // Pitch deck lives in public/ but gets clean URLs. /pricing opens
+            // straight on the pricing slide — deck.html reads the pathname.
+            {
+                source: "/aim",
+                destination: "/deck.html",
+            },
+            {
+                source: "/pricing",
+                destination: "/deck.html",
+            },
         ];
     },
 };

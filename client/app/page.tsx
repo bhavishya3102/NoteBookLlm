@@ -149,6 +149,20 @@ export default async function HomePage() {
                     className="flex animate-rise items-center gap-2"
                     style={{ animationDelay: "80ms" }}
                 >
+                    <nav className="flex items-center gap-1">
+                        <a
+                            href="/aim"
+                            className="rounded-md px-3 py-1.5 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
+                        >
+                            Aim
+                        </a>
+                        <a
+                            href="/pricing"
+                            className="rounded-md px-3 py-1.5 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
+                        >
+                            Pricing
+                        </a>
+                    </nav>
                     <ModeToggle />
                     {session ? (
                         <Button

@@ -194,6 +194,27 @@ p { margin: 0; }
 .rail button:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 @media (max-width: 720px) { .rail { display: none; } }
 
+.back-home {
+  position: fixed;
+  top: clamp(0.75rem, 1.6vw, 1.25rem);
+  left: clamp(0.75rem, 1.6vw, 1.25rem);
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow: var(--shadow-plate);
+  color: var(--muted);
+  font-size: var(--step--1);
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.back-home:hover { color: var(--fg); border-color: var(--muted); }
+.back-home:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
 .hint {
   position: fixed;
   bottom: 1rem;
@@ -369,6 +390,7 @@ ul.ticks li::before { content: "—"; color: var(--primary); flex: none; font-fa
 
 </head>
 <body>
+<a class="back-home" href="/">← Manthan</a>
 <nav class="rail" id="rail" aria-label="Slides"></nav>
 <div class="hint" id="hint">↓ / space to advance</div>
 
@@ -957,6 +979,14 @@ ul.ticks li::before { content: "—"; color: var(--primary); flex: none; font-fa
   }
 
   mark(0);
+
+  // /aim aur /pricing dono isi file pe rewrite hote hain (next.config.ts).
+  // /pricing seedha pricing slide pe khule.
+  var routeSlide = { "/pricing": "s9" }[location.pathname.replace(/\/+$/, "")];
+  if (routeSlide) {
+    var target = document.getElementById(routeSlide);
+    if (target) go(slides.indexOf(target));
+  }
 
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
