@@ -6,14 +6,16 @@ services:
     plan: free
     region: oregon
     healthCheckPath: /health
-    buildCommand: npm ci && npx prisma generate && npm run build && npx prisma migrate deploy
+    buildCommand: npm ci --include=dev && npx prisma generate && npm run build && npx prisma migrate deploy
     startCommand: npm run start
     envVars:
       - key: NODE_VERSION
         value: "22.22.0"
       - key: NODE_ENV
         value: production
-      # Neon Postgres — pooled connection string
+      # Neon Postgres — DIRECT (unpooled) URL: no "-pooler" in the host.
+      # prisma migrate deploy runs in the build and needs a direct connection,
+      # and the server keeps its own pg.Pool so PgBouncer buys us nothing here.
       - key: DATABASE_URL
         sync: false
       # Public URL of the Vercel frontend (both must be the same origin)

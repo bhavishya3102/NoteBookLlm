@@ -15,8 +15,14 @@ cookie first-party.
 ## 1. Database — Neon
 
 1. Create a project at <https://console.neon.tech>.
-2. Copy the **pooled** connection string (host contains `-pooler`).
+2. Copy the **direct** connection string — the one *without* `-pooler` in the
+   host. Neon shows the pooled URL by default; untick "Connection pooling".
 3. Keep `?sslmode=require` on the end.
+
+Use the direct URL, not the pooled one, for two reasons: `prisma migrate deploy`
+runs during the Render build and needs a direct connection, and the server opens
+its own `pg.Pool` in `server/src/lib/db.ts`, so PgBouncer adds nothing for a
+single long-lived Render instance.
 
 No extensions are needed. Embeddings live in Pinecone, not Postgres.
 
@@ -28,15 +34,18 @@ Migrations run automatically on every Render build via `prisma migrate deploy`.
 **New → Blueprint**, point it at this GitHub repo, and it will create the
 `chaibook-api` web service with `rootDir: server`.
 
-Build:  `npm ci && npx prisma generate && npm run build && npx prisma migrate deploy`
+Build:  `npm ci --include=dev && npx prisma generate && npm run build && npx prisma migrate deploy`
 Start:  `npm run start`
 Health: `/health`
+
+`--include=dev` is required: `NODE_ENV=production` makes `npm ci` skip
+devDependencies, and `typescript` lives there, so `tsc` would be missing.
 
 Set these in the Render dashboard (the blueprint marks them `sync: false`):
 
 | Variable | Notes |
 | --- | --- |
-| `DATABASE_URL` | Neon pooled URL from step 1 |
+| `DATABASE_URL` | Neon **direct** (unpooled) URL from step 1 |
 | `CLIENT_URL` | Vercel URL, e.g. `https://chaibook.vercel.app` — drives CORS |
 | `BETTER_AUTH_URL` | Same Vercel URL |
 | `BETTER_AUTH_SECRET` | Render generates one; or reuse your own |
