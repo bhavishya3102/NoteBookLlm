@@ -86,10 +86,17 @@ export function LoginForm({
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card>
+            <Card className="animate-rise border-border/70 shadow-plate">
                 <CardHeader className="text-center">
-                    <CardTitle className="text-xl">Welcome back</CardTitle>
-                    <CardDescription>
+                    <p className="eyebrow flex items-center justify-center gap-3">
+                        <span aria-hidden className="h-px w-6 bg-border" />
+                        समुद्र मंथन
+                        <span aria-hidden className="h-px w-6 bg-border" />
+                    </p>
+                    <CardTitle className="font-display mt-3 text-2xl font-semibold tracking-tight">
+                        Welcome back
+                    </CardTitle>
+                    <CardDescription className="reading-surface">
                         Sign in with Google to continue to Manthan
                     </CardDescription>
                 </CardHeader>
@@ -105,7 +112,7 @@ export function LoginForm({
                                 <Button
                                     type="submit"
                                     variant="outline"
-                                    className="w-full"
+                                    className="h-11 w-full"
                                     disabled={isLoading}
                                 >
                                     {isLoading ? (
@@ -120,7 +127,9 @@ export function LoginForm({
                                     service and privacy policy.
                                 </FieldDescription>
                             </Field>
-                            <FieldSeparator>Secure sign-in</FieldSeparator>
+                            <FieldSeparator className="eyebrow [&_[data-slot=field-separator-content]]:bg-card">
+                                Secure sign-in
+                            </FieldSeparator>
                             {error ? (
                                 <p className="text-center text-sm text-destructive">
                                     {error}

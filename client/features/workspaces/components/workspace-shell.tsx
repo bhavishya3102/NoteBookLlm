@@ -35,6 +35,7 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { ManthanWordmark } from "@/shared/components/brand/manthan-mark";
 import { workspaceRoutes } from "../lib/routes";
 import type { Workspace } from "../lib/types";
 import { WorkspaceHeaderActions } from "./workspace-header-actions";
@@ -55,15 +56,30 @@ export function WorkspaceShell({ workspace, children }: WorkspaceShellProps) {
     const isChatActive =
         !isSourcesActive && !isLearnActive && !pathname.includes("/settings");
     const isSettingsActive = pathname.includes("/settings");
+    const sectionLabel = isSourcesActive
+        ? "Sources"
+        : isLearnActive
+          ? "Learn"
+          : isSettingsActive
+            ? "Settings"
+            : "Chat";
 
     return (
         <SidebarProvider className="h-svh overflow-hidden">
             <Sidebar>
                 <SidebarHeader className="border-b border-sidebar-border">
-                    <div className="flex items-center gap-2 px-2 py-1">
-                        <span className="text-xl">{workspace.icon ?? "📚"}</span>
+                    <Link
+                        href={workspaceRoutes.list}
+                        className="flex items-center gap-2 px-2 pt-1 pb-2"
+                    >
+                        <ManthanWordmark size="sm" />
+                    </Link>
+                    <div className="flex items-center gap-2.5 px-2 py-1">
+                        <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-sidebar-border bg-sidebar-accent/40 text-lg">
+                            {workspace.icon ?? "📚"}
+                        </span>
                         <div className="min-w-0 flex-1">
-                            <p className="truncate font-medium">
+                            <p className="font-heading truncate font-medium">
                                 {workspace.title}
                             </p>
                             {workspace.description ? (
@@ -158,10 +174,11 @@ export function WorkspaceShell({ workspace, children }: WorkspaceShellProps) {
             </Sidebar>
 
             <SidebarInset className="min-h-0 overflow-hidden">
-                <header className="flex h-14 shrink-0 items-center gap-3 border-b px-4">
+                <header className="bg-background/80 flex h-14 shrink-0 items-center gap-3 border-b px-4 backdrop-blur-md">
                     <SidebarTrigger />
                     <div className="min-w-0 flex-1">
-                        <h1 className="truncate font-heading text-base font-semibold">
+                        <p className="eyebrow">{sectionLabel}</p>
+                        <h1 className="font-display truncate text-base font-semibold tracking-tight">
                             {workspace.title}
                         </h1>
                     </div>

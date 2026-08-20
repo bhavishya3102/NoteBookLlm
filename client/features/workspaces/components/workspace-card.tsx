@@ -11,7 +11,8 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { getWorkspaceGradient } from "../lib/workspace-gradients";
+import { ManthanMark } from "@/shared/components/brand/manthan-mark";
+import { getWorkspaceAccent } from "../lib/workspace-accents";
 import { workspaceRoutes } from "../lib/routes";
 import type { Workspace } from "../lib/types";
 
@@ -29,34 +30,59 @@ export function WorkspaceCard({
     className,
 }: WorkspaceCardProps) {
     const href = workspaceRoutes.detail(workspace.id);
-    const gradient = getWorkspaceGradient(workspace.id);
+    const accent = getWorkspaceAccent(workspace.id);
 
     return (
         <article
+            style={{ "--accent": accent } as React.CSSProperties}
             className={cn(
-                "group/card relative min-h-[196px] overflow-hidden rounded-3xl shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg",
+                "group/card relative isolate flex min-h-[184px] flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-plate transition-all duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_oklch,var(--accent)_40%,var(--border))] hover:shadow-lift",
                 className,
             )}
         >
+            {/* the accent reads as a bound edge, not a wash over the whole plate */}
+            <span
+                aria-hidden
+                className="absolute inset-x-0 top-0 z-10 h-[2px]"
+                style={{
+                    background:
+                        "linear-gradient(90deg, var(--accent), color-mix(in oklch, var(--accent) 15%, transparent))",
+                }}
+            />
+            <span
+                aria-hidden
+                className="pointer-events-none absolute -top-20 -right-16 -z-10 size-52 rounded-full opacity-[0.10] transition-opacity duration-300 group-hover/card:opacity-[0.18]"
+                style={{
+                    background:
+                        "radial-gradient(closest-side, var(--accent), transparent 70%)",
+                }}
+            />
+            <ManthanMark
+                className="pointer-events-none absolute -right-7 -bottom-9 -z-10 size-32 text-foreground opacity-[0.045]"
+            />
+
             <Link
                 href={href}
-                className={cn(
-                    "absolute inset-0 z-0 rounded-3xl bg-linear-to-br focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                    gradient,
-                )}
+                className="absolute inset-0 z-0 rounded-2xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                 aria-label={`Open ${workspace.title}`}
             />
 
-            <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/35 via-black/5 to-white/10" />
-
-            <div className="pointer-events-none relative flex h-full min-h-[196px] flex-col p-5">
+            <div className="pointer-events-none relative flex flex-1 flex-col p-5">
                 <div className="flex items-start justify-between gap-2">
-                    <span className="flex size-11 items-center justify-center rounded-2xl bg-white/20 text-2xl backdrop-blur-sm">
+                    <span
+                        className="flex size-11 items-center justify-center rounded-xl border text-2xl"
+                        style={{
+                            borderColor:
+                                "color-mix(in oklch, var(--accent) 28%, transparent)",
+                            background:
+                                "color-mix(in oklch, var(--accent) 10%, transparent)",
+                        }}
+                    >
                         {workspace.icon ?? "📚"}
                     </span>
 
                     <div
-                        className="pointer-events-auto relative z-10"
+                        className="pointer-events-auto relative z-10 opacity-0 transition-opacity focus-within:opacity-100 group-hover/card:opacity-100"
                         onClick={(event) => event.stopPropagation()}
                         onKeyDown={(event) => event.stopPropagation()}
                     >
@@ -66,7 +92,7 @@ export function WorkspaceCard({
                                     <Button
                                         variant="ghost"
                                         size="icon-sm"
-                                        className="size-8 bg-black/15 text-white hover:bg-black/25 hover:text-white"
+                                        className="size-8 text-muted-foreground"
                                     />
                                 }
                             >
@@ -92,16 +118,16 @@ export function WorkspaceCard({
                     </div>
                 </div>
 
-                <div className="mt-auto space-y-1.5 pt-8 text-white">
-                    <h3 className="line-clamp-2 font-heading text-lg font-semibold leading-snug drop-shadow-sm">
+                <div className="mt-auto space-y-1.5 pt-8">
+                    <h3 className="font-heading line-clamp-2 text-lg leading-snug font-semibold tracking-tight">
                         {workspace.title}
                     </h3>
                     {workspace.description ? (
-                        <p className="line-clamp-2 text-sm text-white/85">
+                        <p className="line-clamp-2 text-sm text-muted-foreground">
                             {workspace.description}
                         </p>
                     ) : null}
-                    <p className="text-xs text-white/70">
+                    <p className="eyebrow pt-1">
                         Updated{" "}
                         {formatDistanceToNow(new Date(workspace.updatedAt), {
                             addSuffix: true,

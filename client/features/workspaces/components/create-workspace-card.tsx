@@ -17,18 +17,16 @@ export function CreateWorkspaceCard({
             type="button"
             onClick={onClick}
             className={cn(
-                "group flex min-h-[196px] flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-border/80 bg-card/50 p-6 text-center transition-all hover:border-primary/40 hover:bg-muted/40 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "group flex min-h-[184px] flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border p-6 text-center transition-all hover:border-primary/45 hover:bg-primary/[0.03] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
                 className,
             )}
         >
-            <span className="flex size-12 items-center justify-center rounded-full bg-muted transition-colors group-hover:bg-primary/10">
-                <PlusIcon className="size-5 text-muted-foreground transition-colors group-hover:text-primary" />
+            <span className="flex size-11 items-center justify-center rounded-xl border border-border/80 bg-background transition-colors group-hover:border-primary/40 group-hover:bg-primary/10">
+                <PlusIcon className="size-4 text-muted-foreground transition-colors group-hover:text-primary" />
             </span>
-            <div className="space-y-1">
-                <p className="font-medium">Create notebook</p>
-                <p className="text-xs text-muted-foreground">
-                    Upload sources and start chatting
-                </p>
+            <div className="space-y-1.5">
+                <p className="font-heading font-medium">Create notebook</p>
+                <p className="eyebrow">Pour in your sources</p>
             </div>
         </button>
     );

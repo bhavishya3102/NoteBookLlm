@@ -46,6 +46,7 @@ import {
 import { parseCitations } from "../lib/api";
 import { ChatMessageBody } from "./chat-message-body";
 import { CitationSources } from "./citation-sources";
+import { ManthanMark } from "@/shared/components/brand/manthan-mark";
 import { ChatComposer } from "./chat-composer";
 import type { ChatCitation } from "../lib/types";
 import { workspaceRoutes } from "@/features/workspaces/lib/routes";
@@ -368,15 +369,27 @@ export function WorkspaceChat({
                                     <Skeleton className="ml-auto h-16 w-1/2 rounded-3xl" />
                                 </div>
                             ) : messages.length === 0 ? (
-                                <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
-                                    <div className="rounded-full bg-muted p-3">
-                                        <BotIcon className="size-6" />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <p className="font-medium">
+                                <div className="animate-rise flex flex-col items-center justify-center gap-4 py-20 text-center">
+                                    <ManthanMark
+                                        className="size-14 text-primary/70"
+                                        animated
+                                    />
+                                    <p className="eyebrow flex items-center gap-3">
+                                        <span
+                                            aria-hidden
+                                            className="h-px w-6 bg-border"
+                                        />
+                                        the churn
+                                        <span
+                                            aria-hidden
+                                            className="h-px w-6 bg-border"
+                                        />
+                                    </p>
+                                    <div className="space-y-2">
+                                        <p className="font-display text-2xl font-semibold tracking-tight">
                                             Chat with your sources
                                         </p>
-                                        <p className="max-w-sm text-sm text-muted-foreground">
+                                        <p className="reading-surface max-w-sm text-muted-foreground">
                                             Ask questions about the materials
                                             in this workspace. Answers include
                                             citations when relevant context is

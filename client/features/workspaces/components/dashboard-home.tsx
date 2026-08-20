@@ -104,7 +104,16 @@ export function DashboardHome({ userName }: DashboardHomeProps) {
     const greeting = userName?.split(" ")[0] ?? "there";
 
     return (
-        <div className="min-h-svh bg-muted/30">
+        <div className="relative isolate min-h-svh bg-muted/25">
+            {/* a breath of the landing page's bloom, kept faint for app chrome */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-80"
+                style={{
+                    background:
+                        "radial-gradient(90% 100% at 72% 0%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 65%)",
+                }}
+            />
             <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur-md">
                 <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 md:px-8">
                     <Link
@@ -134,26 +143,32 @@ export function DashboardHome({ userName }: DashboardHomeProps) {
             <main className="mx-auto max-w-6xl px-4 py-8 md:px-8 md:py-10">
                 <section className="mb-10 space-y-6">
                     <div className="space-y-2">
-                        <p className="text-sm font-medium text-primary">
+                        <p className="eyebrow flex items-center gap-3">
+                            <span aria-hidden className="h-px w-8 bg-border" />
                             Welcome back, {greeting}
                         </p>
                         <h1 className="font-display text-3xl font-semibold tracking-[-0.02em] md:text-4xl">
                             Your notebooks
                         </h1>
-                        <p className="max-w-2xl text-sm text-muted-foreground md:text-base">
+                        <p className="reading-surface max-w-2xl text-muted-foreground">
                             Organize sources, chat with your materials, and
                             generate learning tools — all in one workspace.
                         </p>
                     </div>
 
-                    <div className="grid gap-3 sm:grid-cols-3">
-                        {FEATURES.map((feature) => (
+                    <div className="grid gap-px overflow-hidden rounded-2xl border bg-border/70 sm:grid-cols-3">
+                        {FEATURES.map((feature, index) => (
                             <div
                                 key={feature.title}
-                                className="rounded-2xl border bg-card/70 p-4 shadow-sm"
+                                className="bg-card p-5 transition-colors hover:bg-card/60"
                             >
-                                <feature.icon className="mb-2 size-4 text-primary" />
-                                <p className="text-sm font-medium">
+                                <div className="flex items-center justify-between">
+                                    <feature.icon className="size-4 text-primary" />
+                                    <span className="numerals text-sm text-muted-foreground/50">
+                                        0{index + 1}
+                                    </span>
+                                </div>
+                                <p className="font-heading mt-3 text-sm font-medium">
                                     {feature.title}
                                 </p>
                                 <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
@@ -167,10 +182,10 @@ export function DashboardHome({ userName }: DashboardHomeProps) {
                 <section className="space-y-5">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h2 className="font-heading text-xl font-semibold">
+                            <h2 className="font-display text-xl font-semibold tracking-tight">
                                 Recent notebooks
                             </h2>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="eyebrow mt-1">
                                 {workspaces?.length
                                     ? `${workspaces.length} notebook${workspaces.length === 1 ? "" : "s"}`
                                     : "Start with your first notebook"}
